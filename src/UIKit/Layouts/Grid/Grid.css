@@ -1,0 +1,7 @@
+.Grid{
+    display: grid;
+    max-width: 600px;
+    grid-template-rows: 180px ;
+    margin-left: auto;
+    margin-right: auto;
+}

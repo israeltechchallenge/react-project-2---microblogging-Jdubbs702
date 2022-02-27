@@ -1,0 +1,14 @@
+.Btn{
+    background-color: aquamarine;
+    color: purple;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+.Btn:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.Btn:active{
+    opacity: 0.9;
+}

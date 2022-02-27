@@ -1,0 +1,55 @@
+.CreateTweet{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid #CCCCCC;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+textarea{
+    margin: 20px 20px 0px 16px ;
+    min-height: 41px;
+    border: none;
+    resize: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #CCCCCC;
+    background-color: #15202B;
+    width: 564px;
+  }
+  textarea:focus{
+    outline: none;
+  }
+  textarea::-webkit-scrollbar{
+    display: none;
+  }
+  .tweet-footer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .message{
+    display: flex;
+    align-items: center;
+    background: #F8D7DA;
+    box-sizing: border-box;
+    border: 1px solid #F5C6CB;
+    border-radius: 4px; 
+    font-size: 16px;
+    color: #721C24;
+    height: 29px;
+    padding: 7px 4px;
+    margin-left: 16px;
+  }
+  .add-button{
+    margin-right: 10px;
+    width: 68px;
+    height: 34px;
+    background-color:#007BFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #FFFFFF;
+  }

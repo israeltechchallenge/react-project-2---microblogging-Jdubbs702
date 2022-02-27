@@ -1,9 +1,11 @@
 import './App.css';
+import TweetsContainer from './components/TweetsContainer/TweetsContainer';
 
 function App() {
+
   return (
     <div className="App">
-      <h1>Setup/Test</h1>
+      <TweetsContainer />
     </div>
   );
 }

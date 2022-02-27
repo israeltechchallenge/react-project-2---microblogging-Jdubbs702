@@ -1,0 +1,5 @@
+.TweetList{
+    display: grid;
+    grid-gap: 15px;
+    grid-template-rows: repeat(auto-fit, minmax(84px));
+}
