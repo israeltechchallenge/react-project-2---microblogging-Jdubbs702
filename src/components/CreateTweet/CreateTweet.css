@@ -1,6 +1,7 @@
 .CreateTweet{
     display: flex;
     flex-direction: column;
+    min-height: 180px;
     justify-content: space-between;
     border: 2px solid #CCCCCC;
     border-radius: 6px;
