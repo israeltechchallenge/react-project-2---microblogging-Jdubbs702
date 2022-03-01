@@ -1,31 +1,33 @@
 import './CreateTweet.css'
 import TextareaAutosize from 'react-textarea-autosize';
 import { useState } from 'react';
+import Btn from '../../UIKit/Elements/Btn/Btn'
 
 const CreateTweet = ({ handleAddTweet }) => {
-    const [userName, setUserName] = useState('Whitesnake');
-    const [content, setTweetText] = useState('');
+    const [content, setContent] = useState('');
 
     const [btnDisabled, setBtnDisabled] = useState(false);
     const [footerBetween, setFooterBetween] = useState(null);
 
     const handleTextAreaChange = (e) => {
+        setContent(e.target.value);
         if (content.length < 140) {
-            setTweetText(e.target.value);
             setBtnDisabled(false);
             setFooterBetween(null)
         } else {
-            setTweetText(e.target.value);
+            setContent(e.target.value);
             setBtnDisabled(true);
             const footerBetween = { justifyContent: 'space-between' }
             setFooterBetween(footerBetween)
         }
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (content.trim().length > 0) {
-            handleAddTweet(content, userName);
+            handleAddTweet(content);
         }
+        setContent('')
     }
 
     return (
@@ -37,7 +39,7 @@ const CreateTweet = ({ handleAddTweet }) => {
             ></TextareaAutosize>
             <div className='tweet-footer' style={footerBetween}>
                 {btnDisabled && <div className='message'>The tweet can't contain more than 140 chars.</div>}
-                <button disabled={btnDisabled} className="add-button">Tweet</button>
+                <Btn disabled={btnDisabled} className="add-button">Tweet</Btn>
             </div>
         </form>
     );

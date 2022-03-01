@@ -1,9 +1,12 @@
 .Btn{
-    background-color: aquamarine;
-    color: purple;
+    margin-right: 10px;
+    width: 68px;
+    height: 34px;
+    background-color:#007BFF;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #FFFFFF;
 }
 .Btn:hover{
     opacity: 0.8;

@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1076px;
+    height: 58px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #343A40;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.5)
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+a.active{
+    color: #FFFFFF;
+}
+.navbar > :first-child{
+    margin-left: 35.87px;
+}
+.navbar > :last-child{
+    margin-left: 45px;
+}

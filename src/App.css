@@ -9,4 +9,5 @@ html, body, #root{
 }
 .App{
   font-family: 'Roboto', sans-serif;
+  padding: 0 10px;
 }
