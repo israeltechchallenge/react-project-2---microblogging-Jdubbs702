@@ -14,17 +14,13 @@ function App() {
 
   const handleSave = (e) => {
     e.preventDefault()
-    console.log(userName)
     setUpdatedUserName(userName);
-    navigate('./home')
-    }
+    navigate('./')
+  }
 
   useEffect(() => {
     localforage.getItem("tweeter").then(val => {
-      console.log("got: ", val);
-      if (val) {
-        setUserName(val)
-      }
+      setUserName(val)
     });
   }, [])
 
@@ -38,8 +34,8 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
-        <Route path='/home' element={<TweetsContainer userName={updatedUserName} />} />
-        <Route path='/profile' element={<Profile userName={userName} setUserName={setUserName} handleSave={handleSave} />} />
+        <Route path='/' element={<TweetsContainer userName={updatedUserName} />} />
+        <Route path='/profile' element={<Profile userName={userName} setUserName={setUserName} handleSave={handleSave} setUpdatedUserName={setUpdatedUserName} />} />
       </Routes>
     </div>
   );

@@ -1,7 +1,11 @@
 import Tweet from '../Tweet/Tweet';
-import './TweetList.css'
+import './TweetList.css';
+import { useContext } from 'react';
+import { TweetsContext } from '../../contexts/TweetsContext';
 
-const TweetList = ({ tweets }) => {
+const TweetList = () => {
+    const { tweets } = useContext(TweetsContext);
+
     const tweetsArray = tweets.slice(0);
     return (
         <div className="TweetList">
