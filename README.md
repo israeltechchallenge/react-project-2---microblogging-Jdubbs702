@@ -1,9 +1,10 @@
-Milestone 4  - Context
+Firebase Hosting URL: https://tweeter-c02b8.web.app
+
+Milestone 5 - Deployment
 
 Features:
-Instead of using state and props, use context for the tweets list and creating new tweet
-
-
-When creating new tweet, do not refresh the list, but add the tweet to the existing local list
-Instead set an interval that gets updates from the server of tweets, in case someone else added a tweet (to keep the list updated)
+Add deployment to firebase so your app will be available from a remote server
+Create a new firebase project (no need to add credit card)
+Follow this guide: https://medium.com/swlh/how-to-deploy-a-react-app-with-firebase-hosting-98063c5bf425
+If you have trouble deploying, look for other solutions online for how to deploy a react app to firebase.
 
