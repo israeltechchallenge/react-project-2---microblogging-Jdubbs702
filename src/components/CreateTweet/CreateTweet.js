@@ -5,7 +5,16 @@ import { TweetsContext } from '../../contexts/TweetsContext';
 import Btn from '../../UIKit/Elements/Btn/Btn';
 
 const CreateTweet = ({isUser}) => {
-    const { content, setContent, handleSubmit } = useContext(TweetsContext);
+    const { handleAddTweet } = useContext(TweetsContext);
+
+    const [content, setContent] = useState('');
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (content.trim().length > 0) {
+            handleAddTweet(content);
+        }
+        setContent('')
+    }
 
     const styleFooter = { justifyContent: 'space-between' }
     const [btnDisabled, setBtnDisabled] = useState(false);

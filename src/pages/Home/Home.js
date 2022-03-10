@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 import CreateTweet from "../../components/CreateTweet/CreateTweet";
 import TweetList from "../../components/TweetList/TweetList";
 import axios from 'axios';
-import { nanoid } from 'nanoid';
 import { TweetsContext } from '../../contexts/TweetsContext'
-import moment from 'moment';
 
 const url = 'https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet'
 
@@ -15,29 +13,18 @@ const TweetsContainer = ({ userName }) => {
     const [error, setError] = useState(null);
 
     const handleAddTweet = (content) => {
-        if(userName){
+        if (userName) {
             const newTweet = {
-                id: nanoid(),
                 content: content,
                 userName: userName,
                 date: new Date().toISOString()
             }
-        axios.post(url, newTweet);
-
-        const newTweets = [newTweet, ...tweets];
-        setTweets(newTweets);
+            axios.post(url, newTweet);
         }
     }
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            fetchTweets();
-        }, 2000);
-        return () => clearInterval(interval);
-    }, [])
-
-    const fetchTweets = () => {
-        axios.get(url)
+    const fetchTweets = async () => {
+        await axios.get(url)
             .then(res => {
                 if (!res.request.status === 200) {
                     throw Error('Could not get tweets');
@@ -52,21 +39,37 @@ const TweetsContainer = ({ userName }) => {
             })
     }
 
-    //↓↓↓ tweets and these items passed through context ↓↓↓//
-    const [content, setContent] = useState('');
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (content.trim().length > 0) {
-            handleAddTweet(content);
-        }
-        setContent('')
+    const updateTweets = async () => {
+        await axios.get(url)
+            .then(res => {
+                if (!res.request.status === 200) {
+                    throw Error('Could not get tweets');
+                } else if (res.data.tweets !== tweets) {
+                    setTweets(res.data.tweets);
+                    setIsPending(false);
+                    setError(null);
+                }
+            })
+            .catch(e => {
+                setIsPending(false);
+                setError(e.message);
+            })
     }
-    //↑↑↑ tweets and these items passed through context ↑↑↑//
+
+    useEffect(() => {
+
+        fetchTweets();
+
+        const interval = setInterval(() => {
+            updateTweets();
+        }, 9000);
+        return () => clearInterval(interval);
+    }, [])
 
     return (
         <div className="Home">
-            <TweetsContext.Provider value={{ content, setContent, handleSubmit, tweets }}>
-                <CreateTweet isUser={userName}/>
+            <TweetsContext.Provider value={{ handleAddTweet, tweets }}>
+                <CreateTweet isUser={userName} />
                 {tweets && <TweetList />}
             </TweetsContext.Provider>
             {error && <div style={{ color: '#CCCCCC' }}>{error}</div>}

@@ -1,7 +1,7 @@
 import './App.css';
 import NavBar from './components/NavBar/Navbar';
 import TweetsContainer from './pages/Home/Home';
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes} from 'react-router-dom'
 import Profile from './pages/Profile/Profile';
 import { useState, useEffect } from 'react';
 import localforage from "localforage";
@@ -10,12 +10,10 @@ function App() {
 
   const [userName, setUserName] = useState('');
   const [updatedUserName, setUpdatedUserName] = useState(userName);
-  const navigate = useNavigate();
 
   const handleSave = (e) => {
     e.preventDefault()
     setUpdatedUserName(userName);
-    navigate('./')
   }
 
   useEffect(() => {

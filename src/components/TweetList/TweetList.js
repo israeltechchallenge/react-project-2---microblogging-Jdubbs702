@@ -10,7 +10,7 @@ const TweetList = () => {
     return (
         <div className="TweetList">
             {tweetsArray.map((tweet) => (
-                <Tweet key={tweet.id} user={tweet.userName} text={tweet.content} date={tweet.date} />
+                <Tweet key={tweet.date} user={tweet.userName} text={tweet.content} date={tweet.date} />
             ))}
         </div>
     );
