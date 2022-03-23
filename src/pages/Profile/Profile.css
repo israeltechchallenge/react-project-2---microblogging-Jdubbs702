@@ -14,26 +14,81 @@
     display: flex;
     flex-direction: column;
 }
-.form > :first-child{
-    margin-top: 26px;
+.label{
+    margin: 26px 0;
     font-size: 18px;
     color: rgba(255, 255, 255, 0.8);
 }
-.form > :nth-child(2){
+.input-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 61px;
     border: 2px solid #CCCCCC;
     border-radius: 6px;
     background-color: #15202B;
     padding-left: 16px;
     margin-top: 5px;
+}
+.input-username{
+    border: none;
+    background-color: #15202B;
     font-size: 16px;
     color: #FFFFFF;
 }
-.form > :nth-child(2)::placeholder{
+.input-username::placeholder{
     font-size: 16px;
     color: #FFFFFF;
+    opacity: .5;
 }
-.form > :last-child > :first-child{
+.input-username:focus, .input-username:active {
+        border: none;
+        outline: none;
+      }
+
+/* .form > :last-child > :last-child{
     float: right;
     margin-top: 16px;
+} */
+.image-selection{
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
 }
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.photo-form{
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 61px;
+    border: 2px solid #CCCCCC;
+    border-radius: 6px;
+    background-color: #15202B;
+    padding-left: 16px;
+    margin-top: 16px;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.container-left{
+    display: flex;
+    align-items: center;
+    
+}
+.dir{
+    padding-left: 16px;
+}
+.dir:hover{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23453886' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+    background-position: bottom;
+    background-repeat: repeat-x;
+    background-size: 20%;
+    border-bottom: 0;
+    text-decoration: none;
+}
+

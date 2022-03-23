@@ -1,40 +1,36 @@
 import './App.css';
 import NavBar from './components/NavBar/Navbar';
 import TweetsContainer from './pages/Home/Home';
-import { Route, Routes} from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import Profile from './pages/Profile/Profile';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import localforage from "localforage";
+import LogIn from './pages/login/Login';
+import SignUp from './pages/signUp/SignUp';
+import useAuth from './hooks/useAuth';
+import { AuthContext } from './contexts/AuthContext'
 
 function App() {
 
-  const [userName, setUserName] = useState('');
-  const [updatedUserName, setUpdatedUserName] = useState(userName);
-
-  const handleSave = (e) => {
-    e.preventDefault()
-    setUpdatedUserName(userName);
-  }
-
-  useEffect(() => {
-    localforage.getItem("tweeter").then(val => {
-      setUserName(val)
-    });
-  }, [])
-
-  useEffect(() => {
-    localforage.setItem("tweeter", userName).then(() => {
-
-    });
-  }, [userName])
+  const auth = useAuth();
+  const { isLoggedIn } = auth;
 
   return (
     <div className="App">
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<TweetsContainer userName={updatedUserName} />} />
-        <Route path='/profile' element={<Profile userName={userName} setUserName={setUserName} handleSave={handleSave} setUpdatedUserName={setUpdatedUserName} />} />
-      </Routes>
+      <AuthContext.Provider value={auth}>
+        <NavBar />
+        <Routes>
+          {isLoggedIn ? <>
+            <Route path='/' element={<TweetsContainer/>} protected='true'/>
+            <Route path='/profile' element={<Profile/>} protected='true'/> 
+            <Route path='*' element={<Navigate to="" />} /></>
+            : <>
+            <Route path='/login' element={<LogIn />} protected='false' />
+            <Route path='/signup' element={<SignUp />} protected='false' />
+            <Route path='*' element={<Navigate to="/login" />} /> </>
+          }
+        </Routes>
+      </AuthContext.Provider>
     </div>
   );
 }

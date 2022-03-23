@@ -27,11 +27,11 @@ textarea{
   }
   .tweet-footer{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
   }
-  .message{
+  .create-message{
     display: flex;
     align-items: center;
     background: #F8D7DA;

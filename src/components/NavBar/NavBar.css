@@ -20,6 +20,11 @@ a.active{
 .navbar > :first-child{
     margin-left: 35.87px;
 }
-.navbar > :last-child{
+.signout-button{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+.profile-link, .login-link, .signup-link{
     margin-left: 45px;
 }

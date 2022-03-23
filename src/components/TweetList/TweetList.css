@@ -1,5 +1,9 @@
 .TweetList{
     display: grid;
     grid-gap: 15px;
-    grid-template-rows: repeat(auto-fit, minmax(84px));
+    
+    min-height: 84px;
+    max-height: 480px;
+    overflow-y: scroll;
 }
+.TweetList::-webkit-scrollbar { width: 0 !important }
