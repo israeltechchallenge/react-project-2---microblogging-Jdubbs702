@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
-import { addDoc, collection, getDocs, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { addDoc, collection, getDocs, getFirestore, query, orderBy, limit, onSnapshot, startAfter } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
@@ -18,11 +18,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const tweetsDB = collection(db, 'tweets');
 const projectStorage = getStorage();
-//ordered query
-const q = query(tweetsDB, orderBy('date', 'desc'), limit(10));
-
-
+const provider = new GoogleAuthProvider();
 const auth = getAuth();
+
+//queries
+const q = query(tweetsDB, orderBy('date', 'desc'), limit(10));
 
 const APIController = {
 
@@ -33,21 +33,22 @@ const APIController = {
 
   login: async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log(userCredential.user, 'logged in')
     return userCredential.user;
+  },
+
+  loginWGoogle: async () => {
+     signInWithPopup(auth, provider);
   },
 
   updateDisplayName: async (newName) => {
     await updateProfile(auth.currentUser, {
-      displayName: newName, //photoURL:'someurl'
+      displayName: newName,
     });
-    //console.log(auth.currentUser.uid)
   },
 
   uploadPhoto: async (uploadPath, imageFile) => {
     const storageRef = ref(projectStorage, uploadPath);
     await uploadBytes(storageRef, imageFile).then((snapshot) => {
-      console.log('Uploaded a file!');
     });
   },
 
@@ -85,24 +86,54 @@ const APIController = {
     });
   },
 
-  getAllTweets: async () => {
+  getTweets: async (setIsEmpty, setLastDoc) => {
     const querySnapshot = await getDocs(q);
+    const isCollectionEmpty = querySnapshot.size === 0;
     const tweets = [];
-    querySnapshot.forEach((doc) => {
-      tweets.push({
-        id: doc.id,
-        ...doc.data()
+    if (isCollectionEmpty) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+      querySnapshot.forEach((doc) => {
+        tweets.push({
+          id: doc.id,
+          ...doc.data()
+        });
       });
-    });
+      const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+      setLastDoc(lastDoc);
+    }
     return tweets;
   },
 
-  addNewTweet: async ({ content, displayName, date, photoURL }) => {
-    const docRef = await addDoc(tweetsDB, {
+  fetchMore: async (setIsEmpty, setLastDoc, lastDoc) => {
+    const nextQ = query(tweetsDB, orderBy('date', 'desc'), startAfter(lastDoc), limit(10));
+    const querySnapshot = await getDocs(nextQ);
+    const isCollectionEmpty = querySnapshot.size === 0;
+    const tweets = [];
+    if (isCollectionEmpty) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+      querySnapshot.forEach((doc) => {
+        tweets.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+      const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+      setLastDoc(lastDoc);
+    }
+    return tweets;
+  },
+
+  addNewTweet: async ({ content, displayName, date, photoURL, userID }) => {
+    await addDoc(tweetsDB, {
       content,
       displayName,
       date,
-      photoURL
+      photoURL,
+      userID
     });
   },
 }

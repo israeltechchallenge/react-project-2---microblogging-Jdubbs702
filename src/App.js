@@ -1,10 +1,8 @@
 import './App.css';
 import NavBar from './components/NavBar/Navbar';
 import TweetsContainer from './pages/Home/Home';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Profile from './pages/Profile/Profile';
-import { useState, useEffect, useContext } from 'react';
-import localforage from "localforage";
 import LogIn from './pages/login/Login';
 import SignUp from './pages/signUp/SignUp';
 import useAuth from './hooks/useAuth';

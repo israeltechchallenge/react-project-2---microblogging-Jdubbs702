@@ -7,11 +7,18 @@ import { AuthContext } from '../contexts/AuthContext';
 const useTweets = () => {
 
     const [tweets, setTweets] = useState([]);
-    const {displayName, photoURL} = useContext(AuthContext);
-    
+    const [isEmpty, setIsEmpty] = useState(null);
+    const [lastDoc, setLastDoc] = useState(null);
+    const { displayName, photoURL, userID } = useContext(AuthContext);
+
     const getTweetsFromServer = async () => {
-        const tweetsList = await APIController.getAllTweets();
+        const tweetsList = await APIController.getTweets(setIsEmpty, setLastDoc);
         setTweets(tweetsList);
+    };
+
+    const scrollDown = async () => {
+        const tweetsList = await APIController.fetchMore(setIsEmpty, setLastDoc, lastDoc);
+        setTweets([...tweets, ...tweetsList]);
     }
 
     const addNewTweet = async (content) => {
@@ -20,6 +27,7 @@ const useTweets = () => {
             displayName: displayName,
             date: new Date().toISOString(),
             photoURL: photoURL,
+            userID: userID,
         });
         return true;
     };
@@ -30,16 +38,18 @@ const useTweets = () => {
             setTweets(tweetslist);
         });
         return unsubscribe;
-     }, []);
-
-     useEffect(() => { 
-        window.localStorage.setItem('tweets', JSON.stringify(tweets));
-     }, [tweets]);
+    }, []);
 
     return {
-        tweets, 
+        tweets,
         addNewTweet,
+        scrollDown,
+        isEmpty,
     };
 };
- 
+
 export default useTweets;
+
+    // useEffect(() => {
+    //     window.localStorage.setItem('tweets', JSON.stringify(tweets));
+    // }, [tweets]);

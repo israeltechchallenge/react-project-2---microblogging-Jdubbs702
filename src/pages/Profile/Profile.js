@@ -1,7 +1,6 @@
 import './Profile.css'
 import Btn from '../../UIKit/Elements/Btn/Btn';
 import { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const Profile = () => {
@@ -26,20 +25,20 @@ const Profile = () => {
     }
     const handlePhotoSave = async (e) => {
         e.preventDefault();
-        setBtnState('loading');
+        setBtnState('Wait...');
         await photoSave(imageFile);
         setBtnState('Save');
     }
     useEffect(() => {
-      setPhoto(photoURL)
-    }, [btnState])
-    
+        setPhoto(photoURL)
+    }, [btnState, photoURL])
+
 
     return (
         <div className="profile">
             <div>Profile</div>
             <form onSubmit={handleSubmit} className='form'>
-                <label className='label'>Current User: {photo && <img src={photo} className='avatar'></img>}{`   ${user}`}</label>
+                <label className='label'>Current User: {photo && <img src={photo} className='avatar' alt=''></img>}{`   ${user}`}</label>
                 <div className="input-container">
                     <input className='input-username' onClick={handleInputClick} onChange={(e) => {
                         setInput(e.target.value)
@@ -61,7 +60,6 @@ const Profile = () => {
                 </div>
                 <Btn>{btnState}</Btn>
             </form>
-
         </div>
     );
 }

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext'
 import Btn from '../../UIKit/Elements/Btn/Btn';
-import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const { signup } = useContext(AuthContext);

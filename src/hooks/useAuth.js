@@ -5,16 +5,20 @@ const useAuth = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userInfo, setUserInfo] = useState({
         displayName: '',
-        photoURL: '', 
+        photoURL: '',
         uid: '',
     });
 
     const signup = async (email, password) => {
-            const user = await APIController.signup(email, password);
-            return user;
+        const user = await APIController.signup(email, password);
+        return user;
     };
     const login = async (email, password) => {
         const user = await APIController.login(email, password);
+        return user;
+    };
+    const loginWGoogle = async () => {
+        const user = await APIController.loginWGoogle();
         return user;
     };
 
@@ -28,7 +32,7 @@ const useAuth = () => {
     };
 
     const setUserName = (user) => {
-        setUserInfo({...userInfo, displayName: user })
+        setUserInfo({ ...userInfo, displayName: user })
     };
 
     const photoSave = async (imageFile) => {
@@ -36,28 +40,25 @@ const useAuth = () => {
         const Path = `thumbnails/${userInfo.uid}/${thumbNailName}`
         await APIController.uploadPhoto(Path, imageFile);
         await APIController.downloadPhoto(Path, setPhotoURL);
-        console.log(userInfo);
     };
 
     const setPhotoURL = (url) => {
-        setUserInfo({...userInfo, photoURL: url })
+        setUserInfo({ ...userInfo, photoURL: url })
     };
 
     const setUID = (uid) => {
-        setUserInfo({...userInfo, uid:uid})
+        setUserInfo({ ...userInfo, uid: uid })
     };
 
     useEffect(() => {
-        console.log(userInfo)
     }, [userInfo])
 
     useEffect(() => {
         APIController.observeAuthState((user) => {
-            if(user){
-                console.log(user);
+            if (user) {
                 setUID(user.uid);
                 setIsLoggedIn(true);
-            }else{
+            } else {
                 setIsLoggedIn(false);
             }
         });
@@ -67,13 +68,14 @@ const useAuth = () => {
         isLoggedIn,
         displayName: userInfo.displayName,
         photoURL: userInfo.photoURL,
-        uid: userInfo.uid,
+        userID: userInfo.uid,
         signup,
         login,
         signout,
-        updateDisplayName, 
+        updateDisplayName,
         photoSave,
+        loginWGoogle,
     };
 }
- 
+
 export default useAuth;

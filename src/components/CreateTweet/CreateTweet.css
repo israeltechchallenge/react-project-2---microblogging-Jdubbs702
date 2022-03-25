@@ -28,7 +28,6 @@ textarea{
   .tweet-footer{
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
   }
   .create-message{
@@ -43,4 +42,10 @@ textarea{
     height: 29px;
     padding: 7px 4px;
     margin-left: 16px;
+    margin-bottom: 5px;
+  }
+  .btn-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }

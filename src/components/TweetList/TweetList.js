@@ -1,32 +1,32 @@
 import Tweet from '../Tweet/Tweet';
 import './TweetList.css';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TweetsContext } from '../../contexts/TweetsContext';
-import {AuthContext} from '../../contexts/AuthContext'
+import ReactScrollWheelHandler from "react-scroll-wheel-handler";
 
 const TweetList = () => {
-    const { tweets } = useContext(TweetsContext);
+    const { tweets, scrollDown, isEmpty } = useContext(TweetsContext);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const downHandler = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        await scrollDown();
+        setIsLoading(false);
+    };
+
     return (
-        <div className="TweetList">
-            {tweets.map((tweet) => (
-                <Tweet key={tweet.id} {...tweet} />
-            ))}
-        </div> 
+        <>
+            <ReactScrollWheelHandler downHandler={downHandler} >
+                <div className="TweetList">
+                {tweets.map((tweet) => (
+                    <Tweet key={tweet.date} {...tweet} />
+                ))}
+                </div>
+            </ReactScrollWheelHandler>
+            {isLoading && <div style={{ color: '#CCCCCC' }}>Loading...</div>}
+            {isEmpty && <div style={{ color: '#CCCCCC' }}>Nothing to see here..</div>}
+        </>
     );
 }
 export default TweetList;
-
-// const TweetList = ({onScroll}) => {
-//     const { listOfTweets } = useContext(TweetsContext);
-//     const handleScroll = onScroll;
-//     const tweetsArray = listOfTweets.slice(0);
-//     return (
-//         <div onScroll={handleScroll} className="TweetList">
-//             {tweetsArray.map((tweet) => (
-//                 <Tweet key={tweet.date} user={tweet.userName} text={tweet.content} date={tweet.date} />
-//             ))}
-//         </div>
-//     );
-// }
-
-// export default TweetList;
