@@ -1,0 +1,17 @@
+.Line{
+    display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+.Line[justify="between"]{
+    justify-content: space-between;
+}
+.Line[direction="column"]{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.Line[align="flex-start"]{
+    align-items: flex-start;
+}

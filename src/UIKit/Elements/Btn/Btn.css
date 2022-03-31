@@ -1,0 +1,17 @@
+.Btn{
+    margin-right: 10px;
+    width: 68px;
+    height: 34px;
+    background-color:#007BFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.Btn:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.Btn:active{
+    opacity: 0.9;
+}

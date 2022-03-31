@@ -1,0 +1,32 @@
+.tweet{
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #343A40;
+    border-radius: 6px;
+    min-height: 84px;  
+}
+.line{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #6C757D;
+    margin-bottom: 16px;
+}
+.line2{
+    display: flex;
+    align-items: center;
+}
+.username{
+    margin-left: 16px;
+}
+.text{
+    font-size: 14px;
+    color: #FFFFFF;
+}
+.thumbnail{
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
